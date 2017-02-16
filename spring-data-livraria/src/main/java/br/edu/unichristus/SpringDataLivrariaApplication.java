@@ -2,19 +2,14 @@ package br.edu.unichristus;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.format.datetime.joda.LocalDateParser;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @SpringBootApplication
 public class SpringDataLivrariaApplication implements CommandLineRunner {
@@ -22,9 +17,12 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 	@Autowired
 	private LivroService servicoLivros;
 
+	@Autowired
+	private EditoraService servicoEditoras;
+
 	@Override
 	public void run(String... args) throws ParseException {
-		
+
 		/* ********************** CRUD DE LIVROS ********************** */
 
 		// Incluindo um novo livro
@@ -74,7 +72,7 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 		// Buscando livros cujos títulos contenham uma string - usando Containing
 		this.servicoLivros.buscarPeloTituloContendo("de").forEach(l -> System.out.println(l));
-		
+
 		// Buscando livros cujos títulos iniciem por uma string
 		this.servicoLivros.buscarPeloTituloComecandoCom("um").forEach(l -> System.out.println(l));
 
@@ -127,14 +125,13 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 		}
 
 		// Buscando livros publicados antes de uma data
-		for (Livro l : this.servicoLivros
-				.buscarPelaDataPublicacaoAntesDe(LocalDate.of(1972, 12, 31))) {
+		for (Livro l : this.servicoLivros.buscarPelaDataPublicacaoAntesDe(LocalDate.of(1972, 12, 31))) {
 			System.out.println(l);
 		}
 
 		// Buscando livros publicados entre duas datas
-		for (Livro l : this.servicoLivros.buscarPelaDataPublicacaoEntre(
-				LocalDate.of(1943, 1, 1), LocalDate.of(1955, 11, 15))) {
+		for (Livro l : this.servicoLivros.buscarPelaDataPublicacaoEntre(LocalDate.of(1943, 1, 1),
+				LocalDate.of(1955, 11, 15))) {
 			System.out.println(l);
 		}
 
@@ -147,6 +144,12 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 		for (Livro l : this.servicoLivros.buscarPeloTituloContendoOrdemDecrescente("de")) {
 			System.out.println(l);
 		}
+
+		/* ********************** CRUD DE EDITORAS ********************** */
+
+		// Incluindo uma nova editora
+		Editora e = new Editora("Érica", "Rio de Janeiro", 1937);
+		this.servicoEditoras.salvar(e);
 
 	}
 
