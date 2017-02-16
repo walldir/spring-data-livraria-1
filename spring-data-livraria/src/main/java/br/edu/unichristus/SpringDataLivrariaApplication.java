@@ -3,6 +3,7 @@ package br.edu.unichristus;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.format.datetime.joda.LocalDateParser;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @SpringBootApplication
 public class SpringDataLivrariaApplication implements CommandLineRunner {
@@ -20,9 +24,11 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws ParseException {
+		
+		/* ********************** CRUD DE LIVROS ********************** */
 
 		// Incluindo um novo livro
-		Livro livro = new Livro("Java Como Programar", new Date(), 250, new BigDecimal("15.00"));
+		Livro livro = new Livro("Java Como Programar", LocalDate.now(), 250, new BigDecimal("15.00"));
 		this.servicoLivros.salvar(livro);
 
 		// Buscando um livro pelo seu ID
@@ -37,9 +43,7 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 				add(5L);
 			}
 		});
-		for (Livro l : livros2) {
-			System.out.println(l);
-		}
+		livros2.forEach(l -> System.out.println(l));
 
 		// Alterando o livro com o ID = 1
 		Livro livro3 = this.servicoLivros.buscarPeloID(1L);
@@ -66,20 +70,13 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 		// Buscando livros cujos títulos contenham uma string - usando like
 		List<Livro> livros6 = this.servicoLivros.buscarPeloTituloLike("%de%");
-		for (Livro l : livros6) {
-			System.out.println(l);
-		}
+		livros6.forEach(l -> System.out.println(l));
 
-		// Buscando livros cujos títulos contenham uma string - usando
-		// Containing
-		for (Livro l : this.servicoLivros.buscarPeloTituloContendo("de")) {
-			System.out.println(l);
-		}
-
+		// Buscando livros cujos títulos contenham uma string - usando Containing
+		this.servicoLivros.buscarPeloTituloContendo("de").forEach(l -> System.out.println(l));
+		
 		// Buscando livros cujos títulos iniciem por uma string
-		for (Livro l : this.servicoLivros.buscarPeloTituloComecandoCom("Um")) {
-			System.out.println(l);
-		}
+		this.servicoLivros.buscarPeloTituloComecandoCom("um").forEach(l -> System.out.println(l));
 
 		// Buscando livros cujos títulos terminem com uma string
 		for (Livro l : this.servicoLivros.buscarPeloTituloTerminandoCom("Paz")) {
@@ -125,21 +122,19 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 		}
 
 		// Buscando livros publicados após uma data
-		for (Livro l : this.servicoLivros
-				.buscarPelaDataPublicacaoDepoisDe(new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1995"))) {
+		for (Livro l : this.servicoLivros.buscarPelaDataPublicacaoDepoisDe(LocalDate.of(1995, 1, 1))) {
 			System.out.println(l);
 		}
 
 		// Buscando livros publicados antes de uma data
 		for (Livro l : this.servicoLivros
-				.buscarPelaDataPublicacaoAntesDe(new SimpleDateFormat("dd-MM-yyyy").parse("31-12-1972"))) {
+				.buscarPelaDataPublicacaoAntesDe(LocalDate.of(1972, 12, 31))) {
 			System.out.println(l);
 		}
 
 		// Buscando livros publicados entre duas datas
 		for (Livro l : this.servicoLivros.buscarPelaDataPublicacaoEntre(
-				new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1943"),
-				new SimpleDateFormat("dd-MM-yyyy").parse("15-11-1955"))) {
+				LocalDate.of(1943, 1, 1), LocalDate.of(1955, 11, 15))) {
 			System.out.println(l);
 		}
 

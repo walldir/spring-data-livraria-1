@@ -1,8 +1,7 @@
 package br.edu.unichristus;
 
 import java.math.BigDecimal;
-import java.util.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,7 @@ public class Livro {
 	@Column(name = "TITULO")
 	private String titulo;
 	@Column(name = "DATA_PUBLICACAO")
-	private Date dataPublicacao;
+	private LocalDate dataPublicacao;
 	@Column(name = "NUMERO_PAGINAS")
 	private int numeroPaginas;
 	@Column(name = "PRECO")
@@ -29,7 +28,7 @@ public class Livro {
 	public Livro() {
 	}
 
-	public Livro(String titulo, Date dataPublicacao, int numeroPaginas, BigDecimal preco) {
+	public Livro(String titulo, LocalDate dataPublicacao, int numeroPaginas, BigDecimal preco) {
 		this.titulo = titulo;
 		this.dataPublicacao = dataPublicacao;
 		this.numeroPaginas = numeroPaginas;
@@ -52,11 +51,11 @@ public class Livro {
 		this.titulo = titulo;
 	}
 
-	public Date getDataPublicacao() {
+	public LocalDate getDataPublicacao() {
 		return dataPublicacao;
 	}
 
-	public void setDataPublicacao(Date dataPublicacao) {
+	public void setDataPublicacao(LocalDate dataPublicacao) {
 		this.dataPublicacao = dataPublicacao;
 	}
 
