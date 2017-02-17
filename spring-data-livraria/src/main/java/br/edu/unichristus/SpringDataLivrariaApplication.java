@@ -151,6 +151,28 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 		Editora e = new Editora("Érica", "Rio de Janeiro", 1937);
 		this.servicoEditoras.salvar(e);
 
+		Editora editoraBm = this.servicoEditoras.buscarPeloNome("Bookman");
+		editoraBm.setCidade("Porto Alegre");
+		this.servicoEditoras.salvar(editoraBm);
+		
+		Editora editoraM = this.servicoEditoras.buscarPeloNome("Moderna");
+		this.servicoEditoras.remover(editoraM);
+		
+		for(Editora e1 : this.servicoEditoras.buscarPorAnoEntre(1970, 2012)){
+			System.out.println(e1);
+		}
+		
+		for(Editora e1 : this.servicoEditoras.buscarPorCidade("Rio de Janeiro")){
+			System.out.println(e1);
+		}
+		
+		for(Editora e1 : this.servicoEditoras.buscarPorNomeIniciandoCom("A", "B")){
+			System.out.println(e1);
+		}
+		
+		for(Editora e1 : this.servicoEditoras.buscarPorCidadeEAnoFundacaoMaiorQue("Rio de Janeiro", 2000)){
+			System.out.println(e1);
+		}
 	}
 
 	public static void main(String[] args) {

@@ -64,5 +64,9 @@ public class Editora {
 		return "Editora [editoraID=" + editoraID + ", nome=" + nome + ", cidade=" + cidade + ", anoFundacao="
 				+ anoFundacao + "]";
 	}
+	
+	public Editora (){
+		
+	}
 
 }
