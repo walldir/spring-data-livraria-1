@@ -11,7 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 	@Autowired
@@ -27,7 +27,7 @@ public class SpringDataLivrariaApplication implements CommandLineRunner {
 
 		// Incluindo um novo livro
 		Livro livro = new Livro("Java Como Programar", LocalDate.now(), 250, new BigDecimal("15.00"));
-		this.servicoLivros.salvar(livro);
+		//this.servicoLivros.salvar(livro);
 
 		// Buscando um livro pelo seu ID
 		Livro livro1 = this.servicoLivros.buscarPeloID(1L);
