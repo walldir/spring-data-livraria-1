@@ -130,4 +130,14 @@ public class LivroService {
 		System.out.println("BUSCANDO OS LIVROS COM TÍTULO CONTENDO " + titulo + " EM ORDEM DECRESCENTE");
 		return this.repo.findByTituloContainingOrderByTituloDesc(titulo);
 	}
+	
+	public List<Livro> buscarPelaEditora(Editora editora){
+		System.out.println("BUSCANDO OS LIVROS DA EDITORA " + editora.getNome());
+		return this.repo.findByEditora(editora);
+	}
+	
+	public List<Livro> buscarPeloAutorPais(String pais) {
+		System.out.println("BUSCANDO OS LIVROS DOS AUTORES DO PAIS " + pais);
+		return this.repo.findByAutoresPais(pais);
+	}
 }

@@ -106,7 +106,6 @@ public class Livro {
 	@Override
 	public String toString() {
 		return "Livro [livroID=" + livroID + ", titulo=" + titulo + ", dataPublicacao=" + dataPublicacao
-				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + ", editora=" + editora + ", autores="
-				+ autores + "]";
+				+ ", numeroPaginas=" + numeroPaginas + ", preco=" + preco + ", editora=" + editora + "]";
 	}
 }
